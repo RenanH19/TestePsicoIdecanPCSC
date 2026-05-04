@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BETA-III - Subteste Códigos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>BETA-III - Subteste Códigos</h1>
+    <p class="instructions">Olhe a chave abaixo. Digite o número (1-9) correspondente ao símbolo destacado. Tem <strong>2 minutos</strong>.</p>
+
+    <div class="key-container" id="key-container"></div>
+
+    <div id="timer">02:00</div>
+    <button id="start-btn">Iniciar Teste</button>
+
+    <div class="game-board" id="game-board"></div>
+
+    <div id="result-screen">
+        <h2>Fim do Tempo!</h2>
+        <p><strong>Total Respondido:</strong> <span id="res-total">0</span></p>
+        <p><strong>Acertos:</strong> <span id="res-correct" style="color: green;">0</span></p>
+        <p><strong>Erros:</strong> <span id="res-wrong" style="color: red;">0</span></p>
+        <hr>
+        <p><em>Atualize a página para tentar novamente.</em></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
