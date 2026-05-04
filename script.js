@@ -1,3 +1,8 @@
+// Sons do Jogo
+const soundStart = new Audio('sound/Coin.wav');
+const soundPause = new Audio('sound/Pause.wav');
+const soundEnd = new Audio('sound/MW_YoshiHitEnemy.wav');
+
 // Sequência exata dos 140 números fornecidos
 const sequenciaExata = [
     5, 3, 1, 4, 2, 5, 1, 4, 3, 2, 5, 1, 4, 3, 5, 2, 4, 3, 1, 2,
@@ -18,13 +23,14 @@ let userAnswers = [];
 let currentIndex = preFilledCount; 
 let timerInterval;
 let isPlaying = false;
+let isPaused = false;
+let timeLeft = timeLimit;
 
 // Renderizar a Chave (Legenda)
 const keyContainer = document.getElementById('key-container');
 for (let i = 1; i <= 9; i++) {
     const box = document.createElement('div');
     box.className = 'key-box';
-    // Caminho atualizado para a pasta img/
     box.innerHTML = `
         <div class="key-top"><img src="img/${i}.jpg" alt="Simbolo ${i}"></div>
         <div class="key-bottom">${i}</div>
@@ -41,7 +47,6 @@ for (let i = 0; i < totalItems; i++) {
     box.className = 'game-box';
     box.id = `box-${i}`;
     
-    // Caminho atualizado para a pasta img/
     if (i < preFilledCount) {
         userAnswers.push(correctNumber); 
         box.innerHTML = `
@@ -59,18 +64,34 @@ for (let i = 0; i < totalItems; i++) {
 }
 
 // Lógica do Temporizador
-function updateTimerDisplay(timeLeft) {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
+function updateTimerDisplay(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
     document.getElementById('timer').innerText = 
         `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay(timeLeft);
+        
+        if (timeLeft <= 0) {
+            endGame();
+        }
+    }, 1000);
 }
 
 function endGame() {
     isPlaying = false;
     clearInterval(timerInterval);
+    
+    // Toca o som de fim de jogo
+    soundEnd.play();
+
     document.getElementById('game-board').classList.remove('active-game');
     document.getElementById('start-btn').style.display = 'none';
+    document.getElementById('pause-btn').style.display = 'none';
     document.getElementById('timer').innerText = "Tempo Esgotado!";
     
     if (currentIndex < totalItems) {
@@ -103,27 +124,44 @@ function endGame() {
 // Iniciar Jogo
 document.getElementById('start-btn').addEventListener('click', () => {
     isPlaying = true;
+    
+    // Toca som de início
+    soundStart.play();
+
     document.getElementById('start-btn').style.display = 'none';
+    document.getElementById('pause-btn').style.display = 'inline-block';
     document.getElementById('game-board').classList.add('active-game');
     
     document.getElementById(`answer-${currentIndex}`).classList.add('active-cell');
 
-    let timeLeft = timeLimit;
     updateTimerDisplay(timeLeft);
+    startTimer();
+});
 
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay(timeLeft);
-        
-        if (timeLeft <= 0) {
-            endGame();
-        }
-    }, 1000);
+// Pausar Jogo
+document.getElementById('pause-btn').addEventListener('click', () => {
+    // Toca som de pause
+    soundPause.play();
+
+    if (isPaused) {
+        // Retomar
+        isPaused = false;
+        document.getElementById('pause-btn').innerText = 'Pausar';
+        document.getElementById('game-board').classList.remove('paused-game');
+        startTimer();
+    } else {
+        // Pausar
+        isPaused = true;
+        clearInterval(timerInterval);
+        document.getElementById('pause-btn').innerText = 'Continuar';
+        document.getElementById('game-board').classList.add('paused-game');
+    }
 });
 
 // Lógica de Entrada pelo Teclado
 document.addEventListener('keydown', (e) => {
-    if (!isPlaying) return;
+    // Ignora a digitação se o jogo não começou ou se estiver pausado
+    if (!isPlaying || isPaused) return;
 
     if (e.key >= '1' && e.key <= '9') {
         if (currentIndex < totalItems) {
