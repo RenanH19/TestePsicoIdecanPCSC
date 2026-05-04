@@ -1,6 +1,9 @@
 /* Importando uma fonte moderna do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
+/* =========================================
+   Configurações Gerais
+   ========================================= */
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
@@ -102,7 +105,7 @@ h1 {
     margin-bottom: 35px;
 }
 
-#start-btn, #pause-btn {
+#start-btn, #pause-btn, #reset-btn {
     padding: 14px 35px;
     font-size: 18px;
     font-weight: 700;
@@ -135,6 +138,20 @@ h1 {
 #pause-btn:hover { 
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(242, 153, 74, 0.4);
+}
+
+/* Estilo Tático de Elite para o botão Reiniciar */
+#reset-btn { 
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); 
+    color: #f1c40f; 
+    border: 2px solid #f1c40f;
+}
+
+#reset-btn:hover { 
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #1a252f 0%, #000000 100%);
+    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.4); 
+    color: #ffffff;
 }
 
 /* =========================================
@@ -252,6 +269,7 @@ h1 {
    ========================================= */
 footer {
     margin-top: 50px;
+    margin-bottom: 30px;
     padding: 25px;
     background-color: #1a252f; 
     color: #ecf0f1;
@@ -271,30 +289,27 @@ footer p {
     line-height: 1.5;
 }
 
-/* ... (Mantenha todo o CSS que você já tem até a parte do footer) ... */
-
 /* =========================================
    Teclado Virtual Numérico (Mobile)
    ========================================= */
 #virtual-keypad {
-    display: none; /* Escondido por padrão no computador */
+    display: none; /* Escondido no PC */
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    max-width: 350px;
-    margin: 0 auto 40px auto;
-    padding: 20px;
-    background: #1a252f;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 
 .hidden-keypad {
-    opacity: 0.5;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
     pointer-events: none;
 }
 
 .active-keypad {
     opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
     pointer-events: auto;
 }
 
@@ -317,7 +332,7 @@ footer p {
 }
 
 .v-key-backspace {
-    grid-column: span 3; /* Ocupa a largura inteira */
+    grid-column: span 3; 
     background: #e74c3c;
     color: white;
     font-size: 20px;
@@ -328,27 +343,12 @@ footer p {
     background: #c0392b;
 }
 
-/* Estilo Tático de Elite para o botão Reiniciar */
-#reset-btn { 
-    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); 
-    color: #f1c40f; /* Texto Dourado */
-    border: 2px solid #f1c40f;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-#reset-btn:hover { 
-    transform: scale(1.05);
-    background: linear-gradient(135deg, #1a252f 0%, #000000 100%);
-    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.4); /* Glow dourado */
-    color: #ffffff;
-}
-
 /* =========================================
    Responsividade (Smartphones e Tablets)
    ========================================= */
 @media (max-width: 1024px) {
     .game-board {
-        grid-template-columns: repeat(10, 1fr); /* 10 lacunas por linha em tablets */
+        grid-template-columns: repeat(10, 1fr);
         gap: 8px;
     }
 }
@@ -357,9 +357,6 @@ footer p {
     h1 { font-size: 1.8em; }
     
     .key-container { flex-wrap: wrap; }
-    
-    /* Mostra o teclado virtual em ecrãs menores */
-    #virtual-keypad { display: grid; }
     
     #controls {
         display: flex;
@@ -374,9 +371,27 @@ footer p {
     }
 
     .game-board {
-        grid-template-columns: repeat(5, 1fr); /* 5 lacunas por linha em telemóveis */
+        grid-template-columns: repeat(5, 1fr);
         padding: 15px;
+        /* Espaço extra para o teclado virtual não cobrir a última linha */
+        margin-bottom: 280px; 
     }
 
-    
+    /* Fixa o teclado na base do telemóvel */
+    #virtual-keypad {
+        display: grid;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 15px 15px 25px 15px;
+        box-sizing: border-box;
+        border-radius: 20px 20px 0 0;
+        z-index: 1000;
+        background: rgba(26, 37, 47, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+    }
 }
