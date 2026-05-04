@@ -289,13 +289,24 @@ footer p {
     line-height: 1.5;
 }
 
+Entendido! O teclado ficou tão grande que acabou "comendo" um pedaço da tela.
+
+Para resolver isso, fiz duas coisas:
+
+Encolhi o teclado: Reduzi o tamanho dos botões, da fonte e dos espaços em branco. Assim, ele fica bem mais discreto colado na base do ecrã.
+
+Aumentei a margem do fundo: Aumentei o espaço "fantasma" no final da página (de 280px para 350px). Isso garante que, mesmo quando chegar à última linha do teste, consegue fazer scroll para cima e o teclado não ficará por cima de nada.
+
+Basta substituir toda a parte final do seu style.css (exatamente da secção /* Teclado Virtual Numérico */ até ao fim do ficheiro) por este novo bloco:
+
+CSS
 /* =========================================
    Teclado Virtual Numérico (Mobile)
    ========================================= */
 #virtual-keypad {
     display: none; /* Escondido no PC */
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 6px; /* Diminuído para compactar as teclas */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 
@@ -316,11 +327,11 @@ footer p {
 .v-key {
     background: #ecf0f1;
     border: none;
-    border-radius: 8px;
-    font-size: 28px;
+    border-radius: 6px; /* Mais quadrado */
+    font-size: 22px; /* Fonte menor */
     font-weight: bold;
     color: #2c3e50;
-    padding: 15px 0;
+    padding: 8px 0; /* Menos altura na tecla */
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     font-family: 'Poppins', sans-serif;
@@ -335,8 +346,9 @@ footer p {
     grid-column: span 3; 
     background: #e74c3c;
     color: white;
-    font-size: 20px;
+    font-size: 16px; /* Fonte menor */
     text-transform: uppercase;
+    padding: 10px 0;
 }
 
 .v-key-backspace:active {
@@ -373,11 +385,11 @@ footer p {
     .game-board {
         grid-template-columns: repeat(5, 1fr);
         padding: 15px;
-        /* Espaço extra para o teclado virtual não cobrir a última linha */
-        margin-bottom: 280px; 
+        /* Aumentado para 350px! Garante que pode fazer scroll até à última linha sem o teclado tapar */
+        margin-bottom: 350px; 
     }
 
-    /* Fixa o teclado na base do telemóvel */
+    /* Fixa o teclado na base, agora mais compacto */
     #virtual-keypad {
         display: grid;
         position: fixed;
@@ -386,9 +398,9 @@ footer p {
         width: 100%;
         max-width: 100%;
         margin: 0;
-        padding: 15px 15px 25px 15px;
+        padding: 10px 10px 15px 10px; /* Bordas mais finas */
         box-sizing: border-box;
-        border-radius: 20px 20px 0 0;
+        border-radius: 15px 15px 0 0;
         z-index: 1000;
         background: rgba(26, 37, 47, 0.95);
         backdrop-filter: blur(10px);
