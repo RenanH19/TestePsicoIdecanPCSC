@@ -270,3 +270,113 @@ footer p {
     letter-spacing: 0.5px;
     line-height: 1.5;
 }
+
+/* ... (Mantenha todo o CSS que você já tem até a parte do footer) ... */
+
+/* =========================================
+   Teclado Virtual Numérico (Mobile)
+   ========================================= */
+#virtual-keypad {
+    display: none; /* Escondido por padrão no computador */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 350px;
+    margin: 0 auto 40px auto;
+    padding: 20px;
+    background: #1a252f;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.hidden-keypad {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.active-keypad {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.v-key {
+    background: #ecf0f1;
+    border: none;
+    border-radius: 8px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 15px 0;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-family: 'Poppins', sans-serif;
+}
+
+.v-key:active {
+    transform: scale(0.95);
+    background: #bdc3c7;
+}
+
+.v-key-backspace {
+    grid-column: span 3; /* Ocupa a largura inteira */
+    background: #e74c3c;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.v-key-backspace:active {
+    background: #c0392b;
+}
+
+/* Estilo Tático de Elite para o botão Reiniciar */
+#reset-btn { 
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); 
+    color: #f1c40f; /* Texto Dourado */
+    border: 2px solid #f1c40f;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#reset-btn:hover { 
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #1a252f 0%, #000000 100%);
+    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.4); /* Glow dourado */
+    color: #ffffff;
+}
+
+/* =========================================
+   Responsividade (Smartphones e Tablets)
+   ========================================= */
+@media (max-width: 1024px) {
+    .game-board {
+        grid-template-columns: repeat(10, 1fr); /* 10 lacunas por linha em tablets */
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 1.8em; }
+    
+    .key-container { flex-wrap: wrap; }
+    
+    /* Mostra o teclado virtual em ecrãs menores */
+    #virtual-keypad { display: grid; }
+    
+    #controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    #start-btn, #pause-btn, #reset-btn {
+        width: 80%;
+        margin: 0;
+    }
+
+    .game-board {
+        grid-template-columns: repeat(5, 1fr); /* 5 lacunas por linha em telemóveis */
+        padding: 15px;
+    }
+
+    
+}

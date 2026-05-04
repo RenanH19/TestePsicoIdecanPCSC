@@ -2,14 +2,14 @@
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BETA-III - Subteste Códigos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <h1>BETA-III - Subteste Códigos</h1>
-    <p class="instructions">Olhe a chave abaixo. Digite o número (1-9) correspondente ao símbolo destacado. Tem <strong>2 minutos</strong>.</p>
+    <p class="instructions">Olhe a chave abaixo. Digite o número correspondente ao símbolo destacado. Tem <strong>2 minutos</strong>.</p>
 
     <div class="key-container" id="key-container"></div>
 
@@ -18,9 +18,23 @@
     <div id="controls">
         <button id="start-btn">Iniciar Teste</button>
         <button id="pause-btn" style="display: none;">Pausar</button>
+        <button id="reset-btn" style="display: none;">Reiniciar</button>
     </div>
 
     <div class="game-board" id="game-board"></div>
+
+    <div id="virtual-keypad" class="hidden-keypad">
+        <button class="v-key" data-key="1">1</button>
+        <button class="v-key" data-key="2">2</button>
+        <button class="v-key" data-key="3">3</button>
+        <button class="v-key" data-key="4">4</button>
+        <button class="v-key" data-key="5">5</button>
+        <button class="v-key" data-key="6">6</button>
+        <button class="v-key" data-key="7">7</button>
+        <button class="v-key" data-key="8">8</button>
+        <button class="v-key" data-key="9">9</button>
+        <button class="v-key v-key-backspace" data-key="Backspace">⌫ Apagar</button>
+    </div>
 
     <div id="result-screen">
         <h2>Fim do Tempo!</h2>
@@ -28,7 +42,6 @@
         <p><strong>Acertos:</strong> <span id="res-correct" style="color: green;">0</span></p>
         <p><strong>Erros:</strong> <span id="res-wrong" style="color: red;">0</span></p>
         <hr>
-        <p><em>Atualize a página para tentar novamente.</em></p>
     </div>
 
     <footer>
